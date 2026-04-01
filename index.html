@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aztec Museum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --aztec-red: #8B0000;
+            --aztec-gold: #D4AF37;
+            --aztec-dark: #1a1a1a;
+            --aztec-stone: #3d3d3d;
+            --aztec-cream: #f5e6d3;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            color: #333;
+            line-height: 1.8;
+        }
+
+        /* Aztec Pattern Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(212, 175, 55, 0.05) 50px, rgba(212, 175, 55, 0.05) 100px),
+                repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(139, 0, 0, 0.05) 50px, rgba(139, 0, 0, 0.05) 100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header - Museum Style */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            border-bottom: 8px solid var(--aztec-gold);
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--aztec-gold) 0px,
+                var(--aztec-gold) 20px,
+                var(--aztec-red) 20px,
+                var(--aztec-red) 40px
+            );
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--aztec-gold) 0px,
+                var(--aztec-gold) 20px,
+                var(--aztec-red) 20px,
+                var(--aztec-red) 40px
+            );
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: var(--aztec-gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--aztec-cream);
+            font-size: 1.3em;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            color: var(--aztec-gold);
+            font-size: 0.95em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--aztec-stone);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 4px solid var(--aztec-gold);
+            border-top: 2px solid var(--aztec-red);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--aztec-cream);
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: var(--aztec-gold);
+            border-bottom: 2px solid var(--aztec-gold);
+        }
+
+        nav a.active {
+            color: var(--aztec-gold);
+            border-bottom: 3px solid var(--aztec-red);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Sections */
+        section {
+            background: var(--aztec-cream);
+            margin: 30px auto;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            display: none;
+            border: 4px solid var(--aztec-gold);
+            border-top: 8px solid var(--aztec-red);
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            font-size: 2.8em;
+            color: var(--aztec-red);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--aztec-gold);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            color: var(--aztec-dark);
+            font-size: 1.6em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--aztec-gold);
+            padding-left: 15px;
+        }
+
+        p {
+            color: #444;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        /* Exhibition Grid */
+        .exhibition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .exhibit-card {
+            background: white;
+            border: 4px solid var(--aztec-gold);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .exhibit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .exhibit-image {
+            background: linear-gradient(135deg, var(--aztec-red), var(--aztec-gold));
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            border-bottom: 4px solid var(--aztec-gold);
+        }
+
+        .exhibit-content {
+            padding: 20px;
+        }
+
+        .exhibit-content h4 {
+            color: var(--aztec-red);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .exhibit-content p {
+            color: #555;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        /* Interactive Map */
+        .map-container {
+            background: linear-gradient(135deg, #f0e6d2, #e6d5b8);
+            border: 6px solid var(--aztec-gold);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .map-title {
+            font-size: 1.4em;
+            color: var(--aztec-red);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .map-location {
+            background: linear-gradient(135deg, var(--aztec-red), #a50000);
+            color: var(--aztec-cream);
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            border: 3px solid var(--aztec-gold);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .map-location:hover {
+            background: linear-gradient(135deg, var(--aztec-gold), #c9941f);
+            color: var(--aztec-dark);
+            transform: scale(1.05);
+        }
+
+        .location-info {
+            background: white;
+            border: 4px solid var(--aztec-gold);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .location-info.show {
+            display: block;
+        }
+
+        .location-info h4 {
+            color: var(--aztec-red);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Quiz Game */
+        .game-container {
+            background: white;
+            border: 4px solid var(--aztec-gold);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .quiz-question {
+            background: linear-gradient(135deg, #fff9f0, #ffe6d5);
+            border: 3px solid var(--aztec-gold);
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question h4 {
+            color: var(--aztec-red);
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .answer-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .answer-btn {
+            background: white;
+            border: 3px solid var(--aztec-gold);
+            color: var(--aztec-dark);
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .answer-btn:hover {
+            background: var(--aztec-gold);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .answer-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .answer-btn.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: var(--aztec-red);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--aztec-gold);
+            color: var(--aztec-dark);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 100%;
+            background: var(--aztec-gold);
+        }
+
+        .timeline-event {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-event:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: auto;
+            width: 48%;
+            text-align: right;
+        }
+
+        .timeline-event:nth-child(even) .timeline-content {
+            margin-left: auto;
+            margin-right: 0;
+            width: 48%;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--aztec-gold);
+            border: 4px solid var(--aztec-dark);
+            border-radius: 50%;
+            top: 0;
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: white;
+            border: 3px solid var(--aztec-gold);
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .timeline-content h4 {
+            color: var(--aztec-red);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Artifact Decoder */
+        .decoder-container {
+            background: white;
+            border: 4px solid var(--aztec-gold);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .symbol-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .symbol-card {
+            background: linear-gradient(135deg, var(--aztec-red), var(--aztec-gold));
+            border: 3px solid var(--aztec-dark);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+        }
+
+        .symbol-emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .symbol-name {
+            color: var(--aztec-cream);
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .challenge-box {
+            background: linear-gradient(135deg, #fff9f0, #ffe6d5);
+            border: 3px solid var(--aztec-gold);
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .challenge-text {
+            font-size: 2em;
+            text-align: center;
+            letter-spacing: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border: 2px solid var(--aztec-gold);
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .challenge-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--aztec-gold);
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            margin: 10px 0;
+        }
+
+        .challenge-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border: 2px solid var(--aztec-gold);
+            display: none;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .challenge-result.show {
+            display: block;
+        }
+
+        .challenge-result.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #4caf50;
+        }
+
+        .challenge-result.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-color: #f44336;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--aztec-dark);
+            color: var(--aztec-cream);
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 8px solid var(--aztec-gold);
+            margin-top: 50px;
+        }
+
+        footer h3 {
+            color: var(--aztec-gold);
+            border: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: var(--aztec-cream);
+            margin-bottom: 10px;
+        }
+
+        .hours {
+            margin-top: 20px;
+            border-top: 2px solid var(--aztec-gold);
+            padding-top: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+            
+            .exhibition-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-event:nth-child(odd) .timeline-content,
+            .timeline-event:nth-child(even) .timeline-content {
+                width: 100%;
+                text-align: left;
+                margin-left: 70px;
+                margin-right: 0;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .answer-options {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 10px;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>🏛️ The Aztec 🏛️</h1>
+                <p class="subtitle">The mexica people</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav>
+            <a href="#" onclick="switchSection('exhibitions'); return false;" class="nav-link active">Exhibitions</a>
+            <a href="#" onclick="switchSection('map'); return false;" class="nav-link">Interactive Map</a>
+            <a href="#" onclick="switchSection('timeline'); return false;" class="nav-link">Timeline</a>
+            <a href="#" onclick="switchSection('quiz'); return false;" class="nav-link">Quiz</a>
+            <a href="#" onclick="switchSection('decoder'); return false;" class="nav-link">Artifact Decoder</a>
+        </nav>
+
+        <div class="container">
+            <!-- Exhibitions Section -->
+            <section id="exhibitions" class="active">
+                <h2>Featured Exhibitions</h2>
+                <p>Explore our world-class collection of Aztec artifacts and learn about the great civilization of Tenochtitlan.</p>
+
+                <div class="exhibition-grid">
+                    <div class="exhibit-card">
+                        <div class="exhibit-image">🏛️</div>
+                        <div class="exhibit-content">
+                            <h4>The Templo Mayor</h4>
+                            <p>Discover the greatest temple of the Aztec world, dedicated to Huitzilopochtli and Tlaloc. Standing 65 meters tall, it dominated the skyline of Tenochtitlan.</p>
+                        </div>
+                    </div>
+
+                    <div class="exhibit-card">
+                        <div class="exhibit-image">☀️</div>
+                        <div class="exhibit-content">
+                            <h4>The Sun Stone</h4>
+                            <p>One of the most important Aztec artifacts. This massive stone disk shows the face of the sun god and represents the Aztec calendar system.</p>
+                        </div>
+                    </div>
+
+                    <div class="exhibit-card">
+                        <div class="exhibit-image">🎭</div>
+                        <div class="exhibit-content">
+                            <h4>Aztec Craftsmanship</h4>
+                            <p>Experience the incredible artistry of Aztec artisans. From jade sculptures to feathered headdresses, witness the mastery of pre-Columbian art.</p>
+                        </div>
+                    </div>
+
+                    <div class="exhibit-card">
+                        <div class="exhibit-image">👑</div>
+                        <div class="exhibit-content">
+                            <h4>Royal Regalia</h4>
+                            <p>View the ceremonial dress and ornaments of Aztec rulers. Each piece tells a story of power, divinity, and cultural significance.</p>
+                        </div>
+                    </div>
+
+                    <div class="exhibit-card">
+                        <div class="exhibit-image">📜</div>
+                        <div class="exhibit-content">
+                            <h4>Codices & Writing</h4>
+                            <p>Explore the Aztec writing system through ancient codices. These pictorial manuscripts reveal the history, religion, and daily life of the Mexica people.</p>
+                        </div>
+                    </div>
+
+                    <div class="exhibit-card">
+                        <div class="exhibit-image">🌾</div>
+                        <div class="exhibit-content">
+                            <h4>Chinampas & Agriculture</h4>
+                            <p>Learn about the ingenious floating gardens that fed Tenochtitlan. These artificial islands revolutionized Aztec agriculture and remain in use today.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>About Tenochtitlan</h3>
+                <p>Tenochtitlan was one of the largest cities in the world at the time of the Spanish conquest in 1521. With a population estimated between 200,000 and 400,000 people, it was larger than most European cities of the era.</p>
+
+                <p>The city was built on an island in Lake Texcoco and featured advanced engineering, including aqueducts, causeways, and a sophisticated system of canals. The Aztecs created artificial islands called chinampas to farm crops in the shallow lake waters.</p>
+
+                <p>The heart of the city was the Templo Mayor, a massive pyramid temple that served as the religious and political center of the Aztec Empire. The temple was surrounded by palaces, markets, and residential areas, all organized in a grid pattern.</p>
+            </section>
+
+            <!-- Interactive Map Section -->
+            <section id="map">
+                <h2>Interactive Map of Tenochtitlan</h2>
+                <p>Click on each location to learn about the important sites in the Aztec capital.</p>
+
+                <div class="map-container">
+                    <div class="map-title">Major Sites of Tenochtitlan</div>
+                    <div class="map-grid">
+                        <div class="map-location" onclick="showLocation('templo')">Templo Mayor</div>
+                        <div class="map-location" onclick="showLocation('palace')">Palace of Montezuma</div>
+                        <div class="map-location" onclick="showLocation('market')">Tlatelolco Market</div>
+                        <div class="map-location" onclick="showLocation('aqueduct')">Aqueduct System</div>
+                        <div class="map-location" onclick="showLocation('zoo')">Aztec Zoo</div>
+                        <div class="map-location" onclick="showLocation('ball')">Ball Court</div>
+                    </div>
+
+                    <div class="location-info" id="templo-info">
+                        <h4>⛩️ Templo Mayor</h4>
+                        <p><strong>Significance:</strong> The most important religious structure in Aztec society, standing approximately 65-70 meters tall.</p>
+                        <p><strong>Dedication:</strong> Twin temples dedicated to Huitzilopochtli (god of war and sun) and Tlaloc (god of rain).</p>
+                        <p><strong>Purpose:</strong> Religious ceremonies, including human sacrifices, were performed here to maintain cosmic balance and ensure the sun's daily journey.</p>
+                    </div>
+
+                    <div class="location-info" id="palace-info">
+                        <h4>👑 Palace of Montezuma II</h4>
+                        <p><strong>Residence:</strong> The royal residence of the Aztec emperor, covering a massive area with multiple courtyards.</p>
+                        <p><strong>Features:</strong> Private chambers, audience halls, gardens, and a private zoo housing exotic animals.</p>
+                        <p><strong>Administrative Hub:</strong> From here, the emperor governed the vast Aztec Empire.</p>
+                    </div>
+
+                    <div class="location-info" id="market-info">
+                        <h4>🛍️ Tlatelolco Market</h4>
+                        <p><strong>Size:</strong> One of the largest marketplaces in the world at that time, with up to 60,000 merchants on market days.</p>
+                        <p><strong>Trade:</strong> Goods from across the empire were traded here: cacao, jade, feathers, textiles, obsidian, and more.</p>
+                        <p><strong>Economy:</strong> The market was the commercial heart of the Aztec Empire, driving economic growth and cultural exchange.</p>
+                    </div>
+
+                    <div class="location-info" id="aqueduct-info">
+                        <h4>💧 Aqueduct System</h4>
+                        <p><strong>Engineering:</strong> Two major aqueducts brought fresh water from springs on the mainland into the island city.</p>
+                        <p><strong>Construction:</strong> Built from stone and sealed with clay, these aqueducts carried water through sophisticated pipeline systems.</p>
+                        <p><strong>Innovation:</strong> The Aztecs also developed systems to manage wastewater and maintain cleanliness throughout the city.</p>
+                    </div>
+
+                    <div class="location-info" id="zoo-info">
+                        <h4>🦁 Aztec Zoo</h4>
+                        <p><strong>Royal Collection:</strong> Montezuma maintained an impressive collection of exotic animals from across the empire.</p>
+                        <p><strong>Animals:</strong> Jaguar, puma, eagle, serpents, and many other species were kept and studied.</p>
+                        <p><strong>Purpose:</strong> The zoo served religious, scientific, and entertainment purposes, showcasing the emperor's power and wealth.</p>
+                    </div>
+
+                    <div class="location-info" id="ball-info">
+                        <h4>⚽ Ball Court (Tlachtli)</h4>
+                        <p><strong>Game:</strong> Played with a rubber ball, this game had religious and political significance.</p>
+                        <p><strong>Rules:</strong> Teams attempted to hit the ball through elevated rings using only hips, thighs, and elbows - not hands or feet.</p>
+                        <p><strong>Symbolism:</strong> The game represented the eternal struggle between cosmic forces, often with winners or losers being sacrificed to the gods.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section id="timeline">
+                <h2>Aztec Civilization Timeline</h2>
+                <p>Trace the rise and fall of the great Aztec Empire through key historical events.</p>
+
+                <div class="timeline">
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>1325 - Foundation of Tenochtitlan</h4>
+                            <p>The Mexica people, having journeyed for generations, founded Tenochtitlan on an island in Lake Texcoco. According to legend, they chose this location after seeing an eagle perched on a cactus, a sign from Huitzilopochtli.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>1375 - Early Growth</h4>
+                            <p>Tenochtitlan begins to expand and flourish. The city develops agriculture using chinampas, establishing itself as a regional power. Trade networks begin to extend across the valley of Mexico.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>1428-1440 - The Triple Alliance</h4>
+                            <p>Tenochtitlan, Texcoco, and Tlacopan form a powerful alliance. Together they conquer neighboring city-states and establish the Aztec Empire. Tribute flows in from across Mesoamerica.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>1440-1468 - Reign of Montezuma I</h4>
+                            <p>Often considered the greatest Aztec ruler, Montezuma I expands the empire to its greatest territorial extent. The city reaches its cultural and architectural peak with magnificent temples, palaces, and public works.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>1502-1520 - Reign of Montezuma II</h4>
+                            <p>Montezuma II becomes emperor and encounters Spanish explorers led by Hernán Cortés. The empire enters a period of crisis as internal strife and the spread of smallpox weaken Aztec society.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>1521 - Fall of Tenochtitlan</h4>
+                            <p>After a 93-day siege, the Spanish conquistadors and their indigenous allies conquer Tenochtitlan. The last Aztec emperor, Cuauhtémoc, surrenders. The Aztec Empire officially falls, though its cultural legacy endures.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz">
+                <h2>Test Your Knowledge</h2>
+                <p>Challenge yourself with our museum quiz. Answer questions about Aztec history, culture, and civilization.</p>
+
+                <div class="game-container">
+                    <div id="quiz-content"></div>
+                </div>
+            </section>
+
+            <!-- Artifact Decoder Section -->
+            <section id="decoder">
+                <h2>Artifact Decoder - Nahuatl Writing System</h2>
+                <p>The Aztecs used a sophisticated system of glyphs to record their history and beliefs. Explore the symbols and try to decode ancient messages.</p>
+
+                <h3>Symbol Guide</h3>
+                <p>Click on each symbol to learn its meaning in the Aztec writing system.</p>
+
+                <div class="symbol-gallery">
+                    <div class="symbol-card" onclick="showSymbolInfo('sun')">
+                        <div class="symbol-emoji">☀️</div>
+                        <div class="symbol-name">TONACATL (Sun/Day)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('water')">
+                        <div class="symbol-emoji">💧</div>
+                        <div class="symbol-name">ATL (Water)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('temple')">
+                        <div class="symbol-emoji">⛩️</div>
+                        <div class="symbol-name">TEOCALLI (Temple)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('warrior')">
+                        <div class="symbol-emoji">⚔️</div>
+                        <div class="symbol-name">YAOTL (Warrior)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('person')">
+                        <div class="symbol-emoji">👤</div>
+                        <div class="symbol-name">TLAPILLI (Person)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('maize')">
+                        <div class="symbol-emoji">🌾</div>
+                        <div class="symbol-name">CENTLI (Maize)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('heart')">
+                        <div class="symbol-emoji">❤️</div>
+                        <div class="symbol-name">YOLLOTL (Heart)</div>
+                    </div>
+                    <div class="symbol-card" onclick="showSymbolInfo('god')">
+                        <div class="symbol-emoji">👑</div>
+                        <div class="symbol-name">TEOTL (Divine)</div>
+                    </div>
+                </div>
+
+                <h3>Decoding Challenges</h3>
+                <p>Use your knowledge of the symbols to decode ancient Aztec messages. Multiple correct answers are accepted!</p>
+
+                <div class="challenge-box">
+                    <p><strong>Challenge 1:</strong> What does this glyph combination mean?</p>
+                    <div class="challenge-text">⚔️ 👤 👑</div>
+                    <input type="text" class="challenge-input" id="answer1" placeholder="Type your answer...">
+                    <button class="btn-primary" onclick="checkDecoderAnswer(1, ['warrior person god', 'warrior is divine', 'warrior fights god', 'divine warrior'])">CHECK ANSWER</button>
+                    <div class="challenge-result" id="result1"></div>
+                </div>
+
+                <div class="challenge-box">
+                    <p><strong>Challenge 2:</strong> Decode this message.</p>
+                    <div class="challenge-text">🌾 💧 👤👤👤</div>
+                    <input type="text" class="challenge-input" id="answer2" placeholder="Type your answer...">
+                    <button class="btn-primary" onclick="checkDecoderAnswer(2, ['maize water people', 'corn and water feed people', 'crops from water', 'people need food and water'])">CHECK ANSWER</button>
+                    <div class="challenge-result" id="result2"></div>
+                </div>
+
+                <div class="challenge-box">
+                    <p><strong>Challenge 3:</strong> What is this sacred message?</p>
+                    <div class="challenge-text">⛩️ 👑 = ❤️</div>
+                    <input type="text" class="challenge-input" id="answer3" placeholder="Type your answer...">
+                    <button class="btn-primary" onclick="checkDecoderAnswer(3, ['sacred temple has power', 'divine temple gives life', 'holy place provides life', 'temple is sacred'])">CHECK ANSWER</button>
+                    <div class="challenge-result" id="result3"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>  the Aztec Civilization preservation group</p>
+            <p><strong>Credits</strong></p>
+            <p><strong>Junior</strong> website developer</p>
+            <p><strong>Calel</strong> researcher/teseter </p>
+            <p><strong>Jack</strong> Researcher/tester 
+        </footer>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = [
+            {
+                question: "In what year was Tenochtitlan founded?",
+                options: ["1250", "1325", "1425", "1500"],
+                correct: 1
+            },
+            {
+                question: "What was the approximate population of Tenochtitlan?",
+                options: ["50,000", "150,000", "200,000-400,000", "1 million"],
+                correct: 2
+            },
+            {
+                question: "What were the floating gardens called?",
+                options: ["Milpas", "Chinampas", "Terraces", "Acequias"],
+                correct: 1
+            },
+            {
+                question: "Which ruler expanded the Aztec Empire to its greatest extent?",
+                options: ["Cuauhtémoc", "Montezuma II", "Montezuma I", "Tenochtitlan"],
+                correct: 2
+            },
+            {
+                question: "What year did Tenochtitlan fall to the Spanish?",
+                options: ["1500", "1510", "1521", "1530"],
+                correct: 2
+            },
+            {
+                question: "How tall was the Templo Mayor?",
+                options: ["40 meters", "50 meters", "65-70 meters", "80 meters"],
+                correct: 2
+            },
+            {
+                question: "Which god was the Aztec god of war?",
+                options: ["Tlaloc", "Quetzalcoatl", "Huitzilopochtli", "Tezcatlipoca"],
+                correct: 2
+            },
+            {
+                question: "How many merchants came to Tlatelolco market?",
+                options: ["10,000", "30,000", "60,000", "100,000"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let quizScore = 0;
+
+        // Symbol Information
+        const symbolInfo = {
+            sun: {
+                name: "TONACATL - Sun/Day",
+                meaning: "Represents the sun god, the cycle of days, and divinity. The sun was central to Aztec cosmology and religion.",
+                usage: "Often used in ritual and calendar contexts."
+            },
+            water: {
+                name: "ATL - Water",
+                meaning: "Represents water, life force, and abundance. Water was essential to Aztec civilization, especially for the chinampas.",
+                usage: "Appears in place names and agricultural references."
+            },
+            temple: {
+                name: "TEOCALLI - Temple",
+                meaning: "Represents the sacred temple, specifically the Templo Mayor. Symbolizes the spiritual and political center of power.",
+                usage: "Used in religious and administrative contexts."
+            },
+            warrior: {
+                name: "YAOTL - Warrior",
+                meaning: "Represents warfare, military strength, and conquest. Warriors were highly valued in Aztec society.",
+                usage: "Appears in historical records of battles and military achievements."
+            },
+            person: {
+                name: "TLAPILLI - Person",
+                meaning: "Represents an individual person. Can be modified to show social status, profession, or role.",
+                usage: "Used in genealogies and personal records."
+            },
+            maize: {
+                name: "CENTLI - Maize/Corn",
+                meaning: "Represents corn, the staple crop of the Aztecs. Corn was sacred and central to their diet and religion.",
+                usage: "Appears in agricultural and economic records."
+            },
+            heart: {
+                name: "YOLLOTL - Heart",
+                meaning: "Represents the heart, life essence, and courage. The heart was believed to contain the person's life force.",
+                usage: "Used in religious and philosophical contexts."
+            },
+            god: {
+                name: "TEOTL - Divine/God",
+                meaning: "Represents divinity, godhood, and sacred power. Often appears as a modifier to enhance meaning.",
+                usage: "Used in religious contexts and to show sacred or elevated status."
+            }
+        };
+
+        // Switch Section
+        function switchSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+
+            // Initialize quiz if quiz section is clicked
+            if (sectionId === 'quiz') {
+                if (document.getElementById('quiz-content').innerHTML === '') {
+                    startQuiz();
+                }
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // Show Location Info
+        function showLocation(locationId) {
+            document.querySelectorAll('.location-info').forEach(info => {
+                info.classList.remove('show');
+            });
+            document.getElementById(locationId + '-info').classList.add('show');
+        }
+
+        // Show Symbol Info
+        function showSymbolInfo(symbolKey) {
+            const info = symbolInfo[symbolKey];
+            alert(`${info.name}\n\n${info.meaning}\n\nUsage: ${info.usage}`);
+        }
+
+        // Quiz Functions
+        function startQuiz() {
+            currentQuestion = 0;
+            quizScore = 0;
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestion >= quizData.length) {
+                document.getElementById('quiz-content').innerHTML = `
+                    <div style="text-align: center; padding: 30px;">
+                        <h3 style="color: var(--aztec-red); font-size: 2em;">Quiz Complete!</h3>
+                        <p style="font-size: 1.5em; color: var(--aztec-gold); font-weight: bold;">Your Score: ${quizScore}/${quizData.length}</p>
+                        <p style="font-size: 1.1em; color: #555;">Percentage: ${Math.round((quizScore / quizData.length) * 100)}%</p>
+                        <button class="btn-primary" onclick="startQuiz()" style="margin-top: 20px;">Retake Quiz</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = quizData[currentQuestion];
+            let html = `
+                <div class="quiz-question">
+                    <h4>Question ${currentQuestion + 1} of ${quizData.length}</h4>
+                    <h4>${q.question}</h4>
+                    <div class="answer-options">
+            `;
+
+            q.options.forEach((option, idx) => {
+                html += `<button class="answer-btn" onclick="answerQuestion(${idx}, ${q.correct})">${option}</button>`;
+            });
+
+            html += `</div></div>`;
+            document.getElementById('quiz-content').innerHTML = html;
+        }
+
+        function answerQuestion(selected, correct) {
+            const buttons = document.querySelectorAll('.answer-btn');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selected === correct) {
+                buttons[selected].classList.add('correct');
+                quizScore++;
+            } else {
+                buttons[selected].classList.add('incorrect');
+                buttons[correct].classList.add('correct');
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                displayQuestion();
+            }, 1500);
+        }
+
+        // Decoder Answer Check
+        function checkDecoderAnswer(challengeNum, validAnswers) {
+            const inputId = 'answer' + challengeNum;
+            const resultId = 'result' + challengeNum;
+            const userAnswer = document.getElementById(inputId).value.toLowerCase().trim();
+
+            const result = document.getElementById(resultId);
+            result.classList.add('show');
+
+            const isCorrect = validAnswers.some(valid => {
+                const validLower = valid.toLowerCase();
+                return userAnswer === validLower || 
+                       validLower.includes(userAnswer) || 
+                       userAnswer.includes(validLower.split(' ')[0]);
+            });
+
+            if (isCorrect) {
+                result.classList.add('correct');
+                result.classList.remove('incorrect');
+                result.textContent = '✓ CORRECT! You have successfully decoded the glyph!';
+            } else {
+                result.classList.add('incorrect');
+                result.classList.remove('correct');
+                result.textContent = `✗ Incorrect. Try: "${validAnswers[0]}"`;
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', function() {
+            console.log('Museum website loaded');
+        });
+    </script>
+</body>
+</html>
