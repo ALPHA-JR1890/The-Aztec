@@ -777,7 +777,7 @@
             <!-- Timeline Section -->
             <section id="timeline">
                 <h2>Aztec Civilization Timeline</h2>
-                <p>Trace the rise and fall of the great Aztec Empire through key historical events.</p>
+    <!-- remeber to make the m in order (copy and paste) -->
 
                 <div class="timeline">
                     <div class="timeline-event">
@@ -785,46 +785,6 @@
                         <div class="timeline-content">
                             <h4>1325 - Foundation of Tenochtitlan</h4>
                             <p>The Mexica people, having journeyed for generations, founded Tenochtitlan on an island in Lake Texcoco. According to legend, they chose this location after seeing an eagle perched on a cactus, a sign from Huitzilopochtli.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-event">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h4>1375 - Early Growth</h4>
-                            <p>Tenochtitlan begins to expand and flourish. The city develops agriculture using chinampas, establishing itself as a regional power. Trade networks begin to extend across the valley of Mexico.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-event">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h4>1428-1440 - The Triple Alliance</h4>
-                            <p>Tenochtitlan, Texcoco, and Tlacopan form a powerful alliance. Together they conquer neighboring city-states and establish the Aztec Empire. Tribute flows in from across Mesoamerica.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-event">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h4>1440-1468 - Reign of Montezuma I</h4>
-                            <p>Often considered the greatest Aztec ruler, Montezuma I expands the empire to its greatest territorial extent. The city reaches its cultural and architectural peak with magnificent temples, palaces, and public works.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-event">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h4>1502-1520 - Reign of Montezuma II</h4>
-                            <p>Montezuma II becomes emperor and encounters Spanish explorers led by Hernán Cortés. The empire enters a period of crisis as internal strife and the spread of smallpox weaken Aztec society.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-event">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h4>1521 - Fall of Tenochtitlan</h4>
-                            <p>After a 93-day siege, the Spanish conquistadors and their indigenous allies conquer Tenochtitlan. The last Aztec emperor, Cuauhtémoc, surrenders. The Aztec Empire officially falls, though its cultural legacy endures.</p>
                         </div>
                     </div>
                 </div>
@@ -884,10 +844,10 @@
                 </div>
 
                 <h3>Decoding Challenges</h3>
-                <p>Use your knowledge of the symbols to decode ancient Aztec messages. Multiple correct answers are accepted!</p>
+                <p>Try to decode theese hieroglyphs</p>
 
                 <div class="challenge-box">
-                    <p><strong>Challenge 1:</strong> What does this glyph combination mean?</p>
+                    <p><strong>Challenge 1:</strong> guess this combonation </p>
                     <div class="challenge-text">⚔️ 👤 👑</div>
                     <input type="text" class="challenge-input" id="answer1" placeholder="Type your answer...">
                     <button class="btn-primary" onclick="checkDecoderAnswer(1, ['warrior person god', 'warrior is divine', 'warrior fights god', 'divine warrior'])">CHECK ANSWER</button>
@@ -903,7 +863,7 @@
                 </div>
 
                 <div class="challenge-box">
-                    <p><strong>Challenge 3:</strong> What is this sacred message?</p>
+                    <p><strong>Challenge 3:</strong> Guess this message</p>
                     <div class="challenge-text">⛩️ 👑 = ❤️</div>
                     <input type="text" class="challenge-input" id="answer3" placeholder="Type your answer...">
                     <button class="btn-primary" onclick="checkDecoderAnswer(3, ['sacred temple has power', 'divine temple gives life', 'holy place provides life', 'temple is sacred'])">CHECK ANSWER</button>
@@ -923,7 +883,7 @@
     </div>
 
     <script>
-        // Quiz Data
+        // Quiz Data QUIZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZzzzzzzzzz
         const quizData = [
             {
                 question: "Question1",
@@ -1015,25 +975,25 @@
             }
         };
 
-        // Switch Section
+ 
         function switchSection(sectionId) {
-            // Hide all sections
+            
             document.querySelectorAll('section').forEach(section => {
                 section.classList.remove('active');
             });
             
-            // Remove active class from all nav links
+            
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
 
-            // Show selected section
+
             document.getElementById(sectionId).classList.add('active');
             
-            // Add active class to clicked nav link
+
             event.target.classList.add('active');
 
-            // Initialize quiz if quiz section is clicked
+    
             if (sectionId === 'quiz') {
                 if (document.getElementById('quiz-content').innerHTML === '') {
                     startQuiz();
@@ -1043,7 +1003,7 @@
             window.scrollTo(0, 0);
         }
 
-        // Show Location Info
+        
         function showLocation(locationId) {
             document.querySelectorAll('.location-info').forEach(info => {
                 info.classList.remove('show');
@@ -1051,7 +1011,7 @@
             document.getElementById(locationId + '-info').classList.add('show');
         }
 
-        // Show Symbol Info
+        
         function showSymbolInfo(symbolKey) {
             const info = symbolInfo[symbolKey];
             alert(`${info.name}\n\n${info.meaning}\n\nUsage: ${info.usage}`);
