@@ -320,21 +320,21 @@
                         <div class="exhibit-content">
                             <h4>religion</h4>
 
-                            <p>insert research hear</p>
+                            <p>Aztec religion was a polytheistic (belief in multiple gods) belief system that required ritual human sacrifices to keep the world in existence. One of the gods that the Aztecs believed in was the 2 faced snake god of knowledge and wind Quetzalcoatl.</p>
                         </div>
                     </div>
                     <div class="exhibit-card">
                         <div class="exhibit-image">🌟</div>
                         <div class="exhibit-content">
                             <h4>Geography</h4>
-                            <p>insert reserach hear</p>
+                            <p>The Aztec Empire was located in the valley of Mexico, surrounded by towering volcanic mountains and centered around Lake Texaco.</p>
                         </div>
                     </div>
                     <div class="exhibit-card">
                         <div class="exhibit-image">🎭</div>
                         <div class="exhibit-content">
                             <h4>Entertainment</h4>
-                            <p>insert research hear</p>
+                            <p>The Aztec civilization had structured ritual dances and theatrical dramas of myths, songs, and processions. These were intertwined with their religion.</p>
                         </div>
                     </div>
                     <div class="exhibit-card">
@@ -360,11 +360,7 @@
                         </div>
                     </div>
 
-                </div>
-                <h3>ANOTHER THING HERES</h3>
-                <p>1st paragrpah</p>
-                <p>2nd paragraph</p>
-                <p>3rd paragpraph</p>
+              
             </section>
 
             <!-- Map Section -->
@@ -596,6 +592,30 @@
             }
         }
     </script>
+    
+    <div id="secret-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999; flex-direction:column;">
+        <button onclick="document.getElementById('secret-overlay').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:25px; cursor:pointer; font-weight:bold; z-index:10001; background:#8B0000; border:3px solid #D4AF37; padding:5px 15px; font-family:'Happy Monkey';">X</button>
+        <iframe src="https://alpha-jr1890.github.io" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+
+    <script>
+        
+        const secretCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
+        let codePosition = 0;
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === secretCode[codePosition]) {
+                codePosition++;
+                if (codePosition === secretCode.length) {
+                    document.getElementById('secret-overlay').style.display = 'flex';
+                    codePosition = 0; 
+                }
+            } else {
+                codePosition = 0; 
+            }
+        });
+    </script>
+
 </body>
 </html>
 
