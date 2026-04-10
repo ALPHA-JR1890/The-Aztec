@@ -1,622 +1,668 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the hitsory of the Aztec</title>
-    <!-- Importing Happy Monkey Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --aztec-red: #8B0000;
-
-            --aztec-gold: #D4AF37;
-            --aztec-dark: #1a1a1a;
-            --aztec-stone: #3d3d3d;
-            --aztec-cream: #f5e6d3;
-        }
-        body {
-            font-family: 'Happy Monkey', system-ui, sans-serif;
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-            color: #333;
-            line-height: 1.8;
-        }
-        /* Aztec Pattern Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 50px, 
-                rgba(212, 175, 55, 0.05) 50px, rgba(212, 175, 55, 0.05) 100px),
-                repeating-linear-gradient(-45deg, transparent, transparent 50px,
-                rgba(139, 0, 0, 0.05) 50px, rgba(139, 0, 0, 0.05) 100px);
-            pointer-events: none;
-            z-index: 0;
-        }
-        .wrapper {
-            position: relative;
-            z-index: 1;
-        }
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
-            border-bottom: 8px solid var(--aztec-gold);
-            padding: 40px 0;
-            text-align: center;
-            position: relative;
-
-            overflow: hidden;
-        }
-        header::before, header::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: repeating-linear-gradient(90deg, var(--aztec-gold) 0px, var(--aztec-gold) 20px, var(--aztec-red) 20px, var(--aztec-red) 40px);
-        }
-        header::before { top: 0; }
-        header::after { bottom: 0; }
-
-        h1 {
-            font-size: 3.5em;
-            color: var(--aztec-gold);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            color: var(--aztec-cream);
-            font-size: 1.3em;
-            font-style: italic;
-        }
-        /* Navigation */
-        nav {
-            background: var(--aztec-stone);
-            padding: 15px 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            border-bottom: 4px solid var(--aztec-gold);
-            border-top: 2px solid var(--aztec-red);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav a {
-            color: var(--aztec-cream);
-            text-decoration: none;
-            padding: 10px 20px;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        nav a:hover, nav a.active {
-            color: var(--aztec-gold);
-            border-bottom: 3px solid var(--aztec-red);
-        }
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        section {
-
-            background: var(--aztec-cream);
-            margin: 30px auto;
-            padding: 50px;
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            display: none;
-            border: 4px solid var(--aztec-gold);
-            border-top: 8px solid var(--aztec-red);
-        }
-        section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        h2 {
-            font-size: 2.8em;
-
-            color: var(--aztec-red);
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--aztec-gold);
-            padding-bottom: 15px;
-            text-transform: uppercase;
-        }
-        h3 {
-            color: var(--aztec-dark);
-            font-size: 1.6em;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            border-left: 5px solid var(--aztec-gold);
-            padding-left: 15px;
-        }
-        /* Exhibition Grid */
-        .exhibition-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-
-            margin-top: 20px;
-        }
-        .exhibit-card {
-            background: white;
-            border: 4px solid var(--aztec-gold);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-        .exhibit-image {
-            background: linear-gradient(135deg, var(--aztec-red), var(--aztec-gold));
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            border-bottom: 4px solid var(--aztec-gold);
-        }
-        .exhibit-content {
-
-            padding: 20px;
-        }
-        .exhibit-content h4 {
-            color: var(--aztec-red);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        /* Map Styles */
-        .map-container {
-            background: #e6d5b8;
-            border: 6px solid var(--aztec-gold);
-            padding: 30px;
-            border-radius: 8px;
-        }
-        .map-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-
-        }
-        .map-location {
-            background: var(--aztec-red);
-            color: white;
-            padding: 20px;
-            border-radius: 6px;
-            text-align: center;
-            cursor: pointer;
-            border: 3px solid var(--aztec-gold);
-            transition: 0.3s;
-            font-weight: bold;
-        }
-        .map-location:hover {
-            background: var(--aztec-gold);
-            color: black;
-        }
-        .location-info {
-            background: white;
-            border: 4px solid var(--aztec-gold);
-
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            display: none;
-        }
-        .location-info.show { display: block; }
-        /* Timeline */
-        .timeline {
-            border-left: 6px solid var(--aztec-gold);
-            margin-left: 20px;
-            padding-left: 30px;
-            position: relative;
-        }
-        .timeline-event { margin-bottom: 40px; position: relative; }
-        .timeline-dot {
-            position: absolute;
-            left: -43px;
-            top: 5px;
-            width: 20px;
-
-            height: 20px;
-            background: var(--aztec-gold);
-            border-radius: 50%;
-            border: 3px solid var(--aztec-dark);
-        }
-        .timeline-content {
-            background: white;
-            padding: 15px;
-            border: 2px solid var(--aztec-gold);
-            border-radius: 6px;
-        }
-        /* Decoder and Quiz */
-        .symbol-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
-        .symbol-card {
-
-            background: var(--aztec-red);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid var(--aztec-gold);
-        }
-        .challenge-box { background: white; padding: 20px; border: 3px solid var(--aztec-gold); margin: 20px 0; }
-        .challenge-text { font-size: 2em; text-align: center; margin: 20px 0; background: #eee; padding: 10px; }
-        .challenge-input { width: 100%; padding: 12px; border: 2px solid var(--aztec-gold); margin: 10px 0; font-family: 'Happy Monkey'; }
-        .challenge-result { margin-top: 10px; font-weight: bold; padding: 10px; display: none; }
-        .challenge-result.correct { color: green; background: #e8f5e9; display: block; }
-        .challenge-result.incorrect { color: red; background: #ffebee; display: block; }
-        .answer-btn { 
-            width: 100%; padding: 12px; margin: 5px 0; 
-            font-family: 'Happy Monkey'; font-weight: bold;
-            background: white; border: 2px solid var(--aztec-gold); cursor: pointer;
-        }
-
-        .answer-btn.correct { background: #4caf50; color: white; }
-        .answer-btn.incorrect { background: #f44336; color: white; }
-
-        footer {
-            background: var(--aztec-dark);
-            color: var(--aztec-cream);
-            text-align: center;
-            padding: 40px;
-            border-top: 8px solid var(--aztec-gold);
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The History of the Aztec</title>
+<!-- Importing Happy Monkey Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  /* ... (Your existing styles remain unchanged) ... */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  :root {
+    --aztec-red: #8b0000;
+    --aztec-gold: #d4af37;
+    --aztec-dark: #1a1a1a;
+    --aztec-stone: #3d3d3d;
+    --aztec-cream: #f5e6d3;
+  }
+  body {
+    font-family: 'Happy Monkey', system-ui, sans-serif;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    color: #333;
+    line-height: 1.8;
+  }
+  /* Aztec Pattern Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 50px,
+        rgba(212, 175, 55, 0.05) 50px,
+        rgba(212, 175, 55, 0.05) 100px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 50px,
+        rgba(139, 0, 0, 0.05) 50px,
+        rgba(139, 0, 0, 0.05) 100px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrapper {
+    position: relative;
+    z-index: 1;
+  }
+  /* Header styles omitted for brevity (your existing styles) */
+  header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+    border-bottom: 8px solid var(--aztec-gold);
+    padding: 40px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  header::before,
+  header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--aztec-gold),
+      var(--aztec-gold) 20px,
+      var(--aztec-red),
+      var(--aztec-red) 40px
+    );
+  }
+  header::before {
+    top: 0;
+  }
+  header::after {
+    bottom: 0;
+  }
+  h1 {
+    font-size: 3.5em;
+    color: var(--aztec-gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 2px;
+  }
+  .subtitle {
+    color: var(--aztec-cream);
+    font-size: 1.3em;
+    font-style: italic;
+  }
+  /* Navigation styles omitted for brevity (your existing styles) */
+  nav {
+    background: var(--aztec-stone);
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-bottom: 4px solid var(--aztec-gold);
+    border-top: 2px solid var(--aztec-red);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav a {
+    color: var(--aztec-cream);
+    text-decoration: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  nav a:hover,
+  nav a.active {
+    color: var(--aztec-gold);
+    border-bottom: 3px solid var(--aztec-red);
+  }
+  /* Main Container styles omitted for brevity (your existing styles) */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  section {
+    background: var(--aztec-cream);
+    margin: 30px auto;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    display: none;
+    border: 4px solid var(--aztec-gold);
+    border-top: 8px solid var(--aztec-red);
+  }
+  section.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  h2 {
+    font-size: 2.8em;
+    color: var(--aztec-red);
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--aztec-gold);
+    padding-bottom: 15px;
+    text-transform: uppercase;
+  }
+  h3 {
+    color: var(--aztec-dark);
+    font-size: 1.6em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-left: 5px solid var(--aztec-gold);
+    padding-left: 15px;
+  }
+  /* Exhibition Grid styles omitted for brevity (your existing styles) */
+  .exhibition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+  }
+  .exhibit-card {
+    background: white;
+    border: 4px solid var(--aztec-gold);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+  .exhibit-image {
+    background: linear-gradient(135deg, var(--aztec-red), var(--aztec-gold));
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
+    border-bottom: 4px solid var(--aztec-gold);
+  }
+  .exhibit-content {
+    padding: 20px;
+  }
+  .exhibit-content h4 {
+    color: var(--aztec-red);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  /* Map styles omitted for brevity (your existing styles) */
+  .map-container {
+    background: #e6d5b8;
+    border: 6px solid var(--aztec-gold);
+    padding: 30px;
+    border-radius: 8px;
+  }
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .map-location {
+    background: var(--aztec-red);
+    color: white;
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    border: 3px solid var(--aztec-gold);
+    transition: 0.3s;
+    font-weight: bold;
+  }
+  .map-location:hover {
+    background: var(--aztec-gold);
+    color: black;
+  }
+  .location-info {
+    background: white;
+    border: 4px solid var(--aztec-gold);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    display: none;
+  }
+  .location-info.show {
+    display: block;
+  }
+  /* Timeline styles omitted for brevity (your existing styles) */
+  .timeline {
+    border-left: 6px solid var(--aztec-gold);
+    margin-left: 20px;
+    padding-left: 30px;
+    position: relative;
+  }
+  .timeline-event {
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -43px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background: var(--aztec-gold);
+    border-radius: 50%;
+    border: 3px solid var(--aztec-dark);
+  }
+  .timeline-content {
+    background: white;
+    padding: 15px;
+    border: 2px solid var(--aztec-gold);
+    border-radius: 6px;
+  }
+  /* Decoder and Quiz styles omitted for brevity (your existing styles) */
+  .symbol-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+  }
+  .symbol-card {
+    background: var(--aztec-red);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid var(--aztec-gold);
+  }
+  .challenge-box {
+    background: white;
+    padding: 20px;
+    border: 3px solid var(--aztec-gold);
+    margin: 20px 0;
+  }
+  .challenge-text {
+    font-size: 2em;
+    text-align: center;
+    margin: 20px 0;
+    background: #eee;
+    padding: 10px;
+  }
+  .challenge-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--aztec-gold);
+    margin: 10px 0;
+    font-family: 'Happy Monkey';
+  }
+  .challenge-result {
+    margin-top: 10px;
+    font-weight: bold;
+    padding: 10px;
+    display: none;
+  }
+  .challenge-result.correct {
+    color: green;
+    background: #e8f5e9;
+  }
+  .challenge-result.incorrect {
+    color: red;
+    background: #ffebee;
+  }
+  .answer-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    font-family: 'Happy Monkey';
+    font-weight: bold;
+    background: white;
+    border: 2px solid var(--aztec-gold);
+    cursor: pointer;
+  }
+  .answer-btn.correct {
+    background: #4caf50;
+    color: white;
+  }
+  .answer-btn.incorrect {
+    background: #f44336;
+    color: white;
+  }
+  footer {
+    background: var(--aztec-dark);
+    color: var(--aztec-cream);
+    text-align: center;
+    padding: 40px;
+    border-top: 8px solid var(--aztec-gold);
+  }
+</style>
 </head>
 <body>
-    <div class="wrapper">
-        <header>
-            <div class="header-content">
-                <h1>🏛️ The Aztec 🏛️</h1>
-                <p class="subtitle">The mexica people</p>
-            </div>
+<div class="wrapper">
+<header>
+  <div class="header-content">
+    <h1>🏛️ The Aztec 🏛️</h1>
+    <p class="subtitle">The mexica people</p>
+  </div>
+</header>
+<nav id="main-nav">
+  <a href="#" onclick="switchSection('exhibitions', this); return false;" class="active">museum</a>
+  <a href="#" onclick="switchSection('map', this); return false;">Map</a>
+  <a href="#" onclick="switchSection('timeline', this); return false;">Timeline</a>
+  <a href="#" onclick="switchSection('quiz', this); return false;">Quiz</a>
+  <a href="#" onclick="switchSection('decoder', this); return false;">Artifact Decoder</a>
+</nav>
+<div class="container">
+<!-- Exhibitions Section -->
+<section id="exhibitions" class="active">
+<h2>Featured Exhibitions</h2>
+<div class="exhibition-grid">
+<div class="exhibit-card">
+<div class="exhibit-image">🏛️</div>
+<div class="exhibit-content">
+<h4>religion</h4>
+<p>Aztec religion was a polytheistic (belief in multiple gods) belief system that required ritual human sacrifices to keep the world in existence. One of the gods that the Aztecs believed in was the 2 faced snake god of knowledge and wind Quetzalcoatl.</p>
+</div>
+</div>
+<div class="exhibit-card">
+<div class="exhibit-image">🌟</div>
+<div class="exhibit-content">
+<h4>Geography</h4>
+<p>The Aztec Empire was located in the valley of Mexico, surrounded by towering volcanic mountains and centered around Lake Texaco.</p>
+</div>
+</div>
+<div class="exhibit-card">
+<div class="exhibit-image">🎭</div>
+<div class="exhibit-content">
+<h4>Entertainment</h4>
+<p>The Aztec civilization had structured ritual dances and theatrical dramas of myths, songs, and processions. These were intertwined with their religion.</p>
+</div>
+</div>
+<div class="exhibit-card">
+<div class="exhibit-image">👑</div>
+<div class="exhibit-content">
+<h4>governement</h4>
+<p>The Aztecs only had one ruler with control power. Then there was nobility with priests and military leaders. Next in line were commence with  jobs of merchants farming and then there were slaves.</p>
+</div>
+</div>
+<div class="exhibit-card">
+<div class="exhibit-image">⚖️</div>
+<div class="exhibit-content">
+<h4>Laws</h4>
+<p>research hear</p>
+</div>
+</div>
+<div class="exhibit-card">
+<div class="exhibit-image">🌽</div>
+<div class="exhibit-content">
+<h4>Agriculture</h4>
+<p>The Aztecs used chinampas to plant crops like corn, beans, squashes, and chili peppers. They used various techniques including intensive cultivation and irrigation systems.</p>
+</div>
+</div>
+</div>
+</section>
 
-        </header>
+<!-- Map Section -->
+<section id="map">
+<h2>Interactive Map of Tenochtitlan</h2>
+<p>Click on each location to learn about the important sites in the Aztec capital.</p>
+<div class="map-container">
+<div class="map-title">Major Sites of The aztec</div>
+<div class="map-grid">
+<div class="map-location" onclick="showLocation('1')">1</div>
+<div class="map-location" onclick="showLocation('2')">2</div>
+<div class="map-location" onclick="showLocation('3')">3</div>
+<div class="map-location" onclick="showLocation('4')">4</div>
+<div class="map-location" onclick="showLocation('5')">5</div>
+<div class="map-location" onclick="showLocation('6')">6</div>
+</div>
+<!-- Location info boxes with images -->
+<div class="location-info" id="loc-1">
+<h4>title</h4>
+<img id="map-img-1" src="" alt="Map 1" style="width:100%; max-width:600px; margin-top:15px;">
+<p><strong>Significance:</strong> significance here.</p>
+<p><strong>Dedication:</strong> DEDICATION HERE</p>
+<p><strong>Purpose:</strong> PURPOSE HERE</p>
+</div>
+<div class="location-info" id="loc-2">
+<h4>title</h4>
+<img id="map-img-2" src="" alt="Map 2" style="width:100%; max-width:600px; margin-top:15px;">
+<p><strong>Significance:</strong> significance here.</p>
+<p><strong>Dedication:</strong> DEDICATION HERE</p>
+<p><strong>Purpose:</strong> PURPOSE HERE</p>
+</div>
+<div class="location-info" id="loc-3">
+<h4>title</h4>
+<img id="map-img-3" src="" alt="Map 3" style="width:100%; max-width:600px; margin-top:15px;">
+<p><strong>Significance:</strong> significance here.</p>
+<p><strong>Dedication:</strong> DEDICATION HERE</p>
+<p><strong>Purpose:</strong> PURPOSE HERE</p>
+</div>
+<div class="location-info" id="loc-4">
+<h4>title</h4>
+<img id="map-img-4" src="" alt="Map 4" style="width:100%; max-width:600px; margin-top:15px;">
+<p><strong>Significance:</strong> significance here.</p>
+<p><strong>Dedication:</strong> DEDICATION HERE</p>
+<p><strong>Purpose:</strong> PURPOSE HERE</p>
+</div>
+<div class="location-info" id="loc-5">
+<h4>title</h4>
+<img id="map-img-5" src="" alt="Map 5" style="width:100%; max-width:600px; margin-top:15px;">
+<p><strong>Significance:</strong> significance here.</p>
+<p><strong>Dedication:</strong> DEDICATION HERE</p>
+<p><strong>Purpose:</strong> PURPOSE HERE</p>
+</div>
+<div class="location-info" id="loc-6">
+<h4>title</h4>
+<img id="map-img-6" src="" alt="Map 6" style="width:100%; max-width:600px; margin-top:15px;">
+<p><strong>Significance:</strong> significance here.</p>
+<p><strong>Dedication:</strong> DEDICATION HERE</p>
+<p><strong>Purpose:</strong> PURPOSE HERE</p>
+</div>
+</div>
+</section>
 
-        <nav id="main-nav">
-            <a href="#" onclick="switchSection('exhibitions', this); return false;" class="active">museum</a>
-            <a href="#" onclick="switchSection('map', this); return false;">Map</a>
-            <a href="#" onclick="switchSection('timeline', this); return false;">Timeline</a>
-            <a href="#" onclick="switchSection('quiz', this); return false;">Quiz</a>
-            <a href="#" onclick="switchSection('decoder', this); return false;">Artifact Decoder</a>
-        </nav>
+<!-- Timeline Section -->
+<section id="timeline">
+<h2>Aztec Civilization Timeline</h2>
+<div class="timeline">
+<div class="timeline-event">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h4>Date title</h4>
+<p>research</p>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="container">
-            <!-- Exhibitions Section -->
-            <section id="exhibitions" class="active">
-                <h2>Featured Exhibitions</h2>
-                <div class="exhibition-grid">
-                    <div class="exhibit-card">
-                        <div class="exhibit-image">🏛️</div>
-                        <div class="exhibit-content">
-                            <h4>religion</h4>
+<!-- Quiz Section -->
+<section id="quiz">
+<h2>Test Your Knowledge</h2>
+<p>try the quiz</p>
+<div id="quiz-content"></div>
+</section>
 
-                            <p>Aztec religion was a polytheistic (belief in multiple gods) belief system that required ritual human sacrifices to keep the world in existence. One of the gods that the Aztecs believed in was the 2 faced snake god of knowledge and wind Quetzalcoatl.</p>
-                        </div>
-                    </div>
-                    <div class="exhibit-card">
-                        <div class="exhibit-image">🌟</div>
-                        <div class="exhibit-content">
-                            <h4>Geography</h4>
-                            <p>The Aztec Empire was located in the valley of Mexico, surrounded by towering volcanic mountains and centered around Lake Texaco.</p>
-                        </div>
-                    </div>
-                    <div class="exhibit-card">
-                        <div class="exhibit-image">🎭</div>
-                        <div class="exhibit-content">
-                            <h4>Entertainment</h4>
-                            <p>The Aztec civilization had structured ritual dances and theatrical dramas of myths, songs, and processions. These were intertwined with their religion.</p>
-                        </div>
-                    </div>
-                    <div class="exhibit-card">
-                        <div class="exhibit-image">👑</div>
+<!-- Decoder Section -->
+<section id="decoder">
+<h2>Artifact Decoder - Nahuatl Writing System</h2>
+<div class="symbol-gallery">
+<div class="symbol-card" onclick="showSymbolInfo('sun')">☀️<br>TONACATL (Sun/Day)</div>
+<div class="symbol-card" onclick="showSymbolInfo('water')">💧<br>ATL (Water)</div>
+<div class="symbol-card" onclick="showSymbolInfo('temple')">⛩️<br>TEOCALLI (Temple)</div>
+<div class="symbol-card" onclick="showSymbolInfo('warrior')">⚔️<br>YAOTL (Warrior)</div>
+<div class="symbol-card" onclick="showSymbolInfo('person')">👤<br>TLAPILLI (Person)</div>
+<div class="symbol-card" onclick="showSymbolInfo('maize')">🌽<br>CENTLI (Maize)</div>
+<div class="symbol-card" onclick="showSymbolInfo('heart')">❤️<br>YOLLOTL (Heart)</div>
+<div class="symbol-card" onclick="showSymbolInfo('god')">👑<br>TEOTL (Divine)</div>
+</div>
+<h3>Decoding Challenges</h3>
+<p>Try to decode theese hieroglyphs</p>
+<div class="challenge-box">
+<p><strong>Challenge 1:</strong> guess this combonation</p>
+<div class="challenge-text">⚔️ 👤 👑</div>
+<input type="text" class="challenge-input" id="answer1" placeholder="Type your answer..." />
+<button class="btn-primary" onclick="checkDecoderAnswer(1, ['warrior person god', 'warrior is divine', 'warrior fights god', 'divine warrior'])">CHECK ANSWER</button>
+<div id="result1" class="challenge-result"></div>
+</div>
+<div class="challenge-box">
+<p><strong>Challenge 2:</strong> Decode this message.</p>
+<div class="challenge-text">🌽 💧 👤👤👤</div>
+<input type="text" class="challenge-input" id="answer2" placeholder="Type your answer..." />
+<button class="btn-primary" onclick="checkDecoderAnswer(2, ['maize water people', 'corn and water feed people', 'crops from water', 'people need food and water'])">CHECK ANSWER</button>
+<div id="result2" class="challenge-result"></div>
+</div>
+<div class="challenge-box">
+<p><strong>Challenge 3:</strong> Guess this message</p>
+<div class="challenge-text">⛩️ 👑 = ❤️</div>
+<input type="text" class="challenge-input" id="answer3" placeholder="Type your answer..." />
+<button class="btn-primary" onclick="checkDecoderAnswer(3, ['sacred temple has power', 'divine temple gives life', 'holy place provides life', 'temple is sacred'])">CHECK ANSWER</button>
+<div id="result3" class="challenge-result"></div>
+</div>
+</section>
+</div>
+<footer>
+<p>the Aztec Civilization preservation group</p>
+<p><strong>Credits</strong></p>
+<p><strong>Junior</strong> Website Developer</p>
+<p><strong>Calel</strong> Researcher/Tester </p>
+<p><strong>Jack</strong> Researcher/Tester </p>
+</footer>
+</div>
+<script>
+const quizData = [
+{ question: "True or false: Did releigion played a crucail roll in aztec life", options: ["True", "False"], correct: 0 },
+{ question: "what is another name for the aztec", options: ["Tzotzil", "The olmec", "Yucatec", "The Mexica people"], correct: 3 },
+{ question: "What was the ideology of the aztecs", options: ["Anarchy", "capitalist state", "Absolute Monarchy", "Communism"], correct: 2 },
+{ question: "Where did the Aztecs establish their empire", options: ["Petra", "Tenochtitlán", "Machu Picchu", "Rome"], correct: 1 },
+{ question: "What language did the Aztecs speak?", options: ["Quechua", "Spanish", "Nahuatl", "Mayan"], correct: 2 },
+{ question: "Where did the Aztecs originate?", options: ["Aztlán", "Greece", "Çatalhöyük", "Gobeckli"], correct: 0 },
+{ question: "What subject were the Aztecs very knowledgeable in", options: ["agriculture", "astronomy", "Math", "Marine Biology", "zoology"], correct: 0 },
+{ question: "Who worked the hardest in Aztec civilization?", options: ["Nobles", "Emporer", "slaves", "peasonts"], correct: 2 }
+];
 
-                        <div class="exhibit-content">
-                            <h4>governement</h4>
-                            <p>The Aztecs only had one ruler with control power. Then there was nobility with priests and military leaders. Next in line were commence with  jobs of merchants farming and then there were slaves.</p>
-                        </div>
-                    </div>
-                    <div class="exhibit-card">
-                        <div class="exhibit-image">⚖️</div>
-                        <div class="exhibit-content">
-                            <h4>Laws</h4>
-                            <p>research hear</p>
-                        </div>
-                    </div>
-                    <div class="exhibit-card">
-                        <div class="exhibit-image">🌽</div>
-                        <div class="exhibit-content">
-                            <h4>Agriculture</h4>
-                            <p>The Aztecs used chinampas to plant crops like corn, beans, squashes, and chili peppers. They used various techniques including intensive cultivation and irrigation systems.</p>
-                        </div>
-                    </div>
+let currentQuestion = 0;
+let quizScore = 0;
 
-              
-            </section>
+const symbolInfo = {
+sun: { name: "TONACATL - Sun/Day", meaning: "Represents the sun god, the cycle of days, and divinity. The sun was central to Aztec cosmology and religion.", usage: "Often used in ritual and calendar contexts." },
+water: { name: "ATL - Water", meaning: "Represents water, life force, and abundance. Water was essential to Aztec civilization, especially for the chinampas.", usage: "Appears in place names and agricultural references." },
+temple: { name: "TEOCALLI - Temple", meaning: "Represents the sacred temple, specifically the Templo Mayor. Symbolizes the spiritual and political center of power.", usage: "Used in religious and administrative contexts." },
+warrior: { name: "YAOTL - Warrior", meaning: "Represents warfare, military strength, and conquest. Warriors were highly valued in Aztec society.", usage: "Appears in historical records of battles and military achievements." },
+person: { name: "TLAPILLI - Person", meaning: "Represents an individual person. Can be modified to show social status, profession, or role.", usage: "Used in genealogies and personal records." },
+maize: { name: "CENTLI - Maize/Corn", meaning: "Represents corn, the staple crop of the Aztecs. Corn was sacred and central to their diet and religion.", usage: "Appears in agricultural and economic records." },
 
-            <!-- Map Section -->
-            <section id="map">
-                <h2>Interactive Map of Tenochtitlan</h2>
-                <p>Click on each location to learn about the important sites in the Aztec capital.</p>
-                <div class="map-container">
-                    <div class="map-title">Major Sites of The aztec</div>
-                    <div class="map-grid">
-                        <div class="map-location" onclick="showLocation('1')">1</div>
-                        <div class="map-location" onclick="showLocation('2')">2</div>
-                        <div class="map-location" onclick="showLocation('3')">3</div>
-                        <div class="map-location" onclick="showLocation('4')">4</div>
-                        <div class="map-location" onclick="showLocation('5')">5</div>
+heart: { name: "YOLLOTL - Heart", meaning: "Represents the heart, life essence, and courage. The heart was believed to contain the person's life force.", usage: "Used in religious and philosophical contexts." },
+god: { name: "TEOTL - Divine/God", meaning: "Represents divinity, godhood, and sacred power. Often appears as a modifier to enhance meaning.", usage: "Used in religious contexts and to show sacred or elevated status." }
+};
 
-                        <div class="map-location" onclick="showLocation('6')">6</div>
-                    </div>
-                    <!-- Placeholder Info Boxes for all 6 -->
-                    <div class="location-info" id="loc-1">
-                        <h4>title</h4>
-                        <p><strong>Significance:</strong> significance here.</p>
-                        <p><strong>Dedication:</strong> DEDICATION HERE</p>
-                        <p><strong>Purpose:</strong> PURPOSE HERE</p>
-                    </div>
-                    <div class="location-info" id="loc-2">
-                        <h4>title</h4>
-                        <p><strong>Significance:</strong> significance here.</p>
-                        <p><strong>Dedication:</strong> DEDICATION HERE</p>
-                        <p><strong>Purpose:</strong> PURPOSE HERE</p>
-                    </div>
-                    <div class="location-info" id="loc-3">
-                        <h4>title</h4>
-                        <p><strong>Significance:</strong> significance here.</p>
-                        <p><strong>Dedication:</strong> DEDICATION HERE</p>
+function switchSection(sectionId, element) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+  if (element) element.classList.add('active');
+  if (sectionId === 'quiz') startQuiz();
+  window.scrollTo(0, 0);
+}
 
-                        <p><strong>Purpose:</strong> PURPOSE HERE</p>
-                    </div>
-                    <div class="location-info" id="loc-4">
-                        <h4>title</h4>
-                        <p><strong>Significance:</strong> significance here.</p>
-                        <p><strong>Dedication:</strong> DEDICATION HERE</p>
-                        <p><strong>Purpose:</strong> PURPOSE HERE</p>
-                    </div>
-                    <div class="location-info" id="loc-5">
-                        <h4>title</h4>
-                        <p><strong>Significance:</strong> significance here.</p>
-                        <p><strong>Dedication:</strong> DEDICATION HERE</p>
-                        <p><strong>Purpose:</strong> PURPOSE HERE</p>
-                    </div>
-                    <div class="location-info" id="loc-6">
-                        <h4>title</h4>
-                        <p><strong>Significance:</strong> significance here.</p>
-                        <p><strong>Dedication:</strong> DEDICATION HERE</p>
-                        <p><strong>Purpose:</strong> PURPOSE HERE</p>
+function showLocation(id) {
+  document.querySelectorAll('.location-info').forEach(info => info.classList.remove('show'));
+  const box = document.getElementById('loc-' + id);
+  if (box) {
+    // Set the image source dynamically based on location id
+    const img = document.getElementById('map-img-' + id);
+    if (img) {
+      img.src = 'map' + id + '.jpeg';
+    }
+    box.classList.add('show');
+  }
+}
 
-                    </div>
-                </div>
-            </section>
+function showSymbolInfo(key) {
+  const info = symbolInfo[key];
+  alert(`${info.name}\n\n${info.meaning}\n\nUsage: ${info.usage}`);
+}
 
-            <!-- Timeline Section -->
-            <section id="timeline">
-                <h2>Aztec Civilization Timeline</h2>
-                <div class="timeline">
-                    <div class="timeline-event">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h4>Date title</h4>
-                            <p>research</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+function startQuiz() {
+  currentQuestion = 0;
+  quizScore = 0;
+  displayQuestion();
+}
 
-            <!-- Quiz Section -->
+function displayQuestion() {
+  const container = document.getElementById('quiz-content');
+  if (currentQuestion >= quizData.length) {
+    container.innerHTML = `<div style="text-align:center;"><h3>Quiz Complete! Score: ${quizScore}/${quizData.length}</h3><button class="btn-primary" onclick="startQuiz()">Retake Quiz</button></div>`;
+    return;
+  }
+  const q = quizData[currentQuestion];
+  let html = `<h4>Question ${currentQuestion + 1}</h4><p>${q.question}</p><div class="answer-options">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="answer-btn" onclick="handleAnswer(${i})">${opt}</button>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
 
-            <section id="quiz">
-                <h2>Test Your Knowledge</h2>
-                <p>try the quiz</p>
-                <div id="quiz-content"></div>
-            </section>
+function handleAnswer(choice) {
+  const correct = quizData[currentQuestion].correct;
+  const btns = document.querySelectorAll('.answer-btn');
+  btns.forEach(b => (b.disabled = true));
+  if (choice === correct) {
+    btns[choice].classList.add('correct');
+    quizScore++;
+  } else {
+    btns[choice].classList.add('incorrect');
+    btns[correct].classList.add('correct');
+  }
+  setTimeout(() => {
+    currentQuestion++;
+    displayQuestion();
+  }, 1500);
+}
 
-            <!-- Decoder Section -->
-            <section id="decoder">
-                <h2>Artifact Decoder - Nahuatl Writing System</h2>
-                <div class="symbol-gallery">
-                    <div class="symbol-card" onclick="showSymbolInfo('sun')">☀️<br>TONACATL (Sun/Day)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('water')">💧<br>ATL (Water)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('temple')">⛩️<br>TEOCALLI (Temple)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('warrior')">⚔️<br>YAOTL (Warrior)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('person')">👤<br>TLAPILLI (Person)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('maize')">🌽<br>CENTLI (Maize)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('heart')">❤️<br>YOLLOTL (Heart)</div>
-                    <div class="symbol-card" onclick="showSymbolInfo('god')">👑<br>TEOTL (Divine)</div>
-                </div>
-
-                <h3>Decoding Challenges</h3>
-                <p>Try to decode theese hieroglyphs</p>
-                <div class="challenge-box">
-                    <p><strong>Challenge 1:</strong> guess this combonation</p>
-                    <div class="challenge-text">⚔️ 👤 👑</div>
-                    <input type="text" class="challenge-input" id="answer1" placeholder="Type your answer...">
-                    <button class="btn-primary" onclick="checkDecoderAnswer(1, ['warrior person god', 'warrior is divine', 'warrior fights god', 'divine warrior'])">CHECK ANSWER</button>
-                    <div id="result1" class="challenge-result"></div>
-                </div>
-                <div class="challenge-box">
-                    <p><strong>Challenge 2:</strong> Decode this message.</p>
-                    <div class="challenge-text">🌽 💧 👤👤👤</div>
-                    <input type="text" class="challenge-input" id="answer2" placeholder="Type your answer...">
-                    <button class="btn-primary" onclick="checkDecoderAnswer(2, ['maize water people', 'corn and water feed people', 'crops from water', 'people need food and water'])">CHECK ANSWER</button>
-                    <div id="result2" class="challenge-result"></div>
-                </div>
-                <div class="challenge-box">
-                    <p><strong>Challenge 3:</strong> Guess this message</p>
-                    <div class="challenge-text">⛩️ 👑 = ❤️</div>
-
-                    <input type="text" class="challenge-input" id="answer3" placeholder="Type your answer...">
-                    <button class="btn-primary" onclick="checkDecoderAnswer(3, ['sacred temple has power', 'divine temple gives life', 'holy place provides life', 'temple is sacred'])">CHECK ANSWER</button>
-                    <div id="result3" class="challenge-result"></div>
-                </div>
-            </section>
-        </div>
-
-        <footer>
-            <p>the Aztec Civilization preservation group</p>
-            <p><strong>Credits</strong></p>
-            <p><strong>Junior</strong> Website Developer</p>
-            <p><strong>Calel</strong> Researcher/Tester </p>
-            <p><strong>Jack</strong> Researcher/Tester </p> 
-        </footer>
-    </div>
-
-    <script>
-        const quizData = [
-            { question: "True or false: Did releigion played a crucail roll in aztec life", options: ["True", "False"], correct: 0 },
-
-            { question: "what is another name for the aztec", options: ["Tzotzil", "The olmec", "Yucatec", "The Mexica people"], correct: 3 },
-            { question: "What was the ideology of the aztecs", options: ["Anarchy", "capitalist state", "Absolute Monarchy", "Communism"], correct: 2 },
-            { question: "Where did the Aztecs establish their empire", options: ["Petra", "Tenochtitlán", "Machu Picchu", "Rome"], correct: 1 },
-            { question: "What language did the Aztecs speak?", options: ["Quechua", "Spanish", "Nahuatl", "Mayan"], correct: 2 },
-            { question: "Where did the Aztecs originate?", options: ["Aztlán", "Greece", "Çatalhöyük", "Göebekli"], correct: 0 },
-            { question: "What subject were the Aztecs very knowledgeable in", options: ["agriculture", "astronomy", "Math", "Marine Biology", "zoology"], correct: 0 },
-            { question: "Who worked the hardest in Aztec civilization?", options: ["Nobles", "Emporoer", "slaves", "peasonts"], correct: 2 }
-        ];
-
-        let currentQuestion = 0;
-        let quizScore = 0;
-
-        const symbolInfo = {
-            sun: { name: "TONACATL - Sun/Day", meaning: "Represents the sun god, the cycle of days, and divinity. The sun was central to Aztec cosmology and religion.", usage: "Often used in ritual and calendar contexts." },
-            water: { name: "ATL - Water", meaning: "Represents water, life force, and abundance. Water was essential to Aztec civilization, especially for the chinampas.", usage: "Appears in place names and agricultural references." },
-            temple: { name: "TEOCALLI - Temple", meaning: "Represents the sacred temple, specifically the Templo Mayor. Symbolizes the spiritual and political center of power.", usage: "Used in religious and administrative contexts." },
-            warrior: { name: "YAOTL - Warrior", meaning: "Represents warfare, military strength, and conquest. Warriors were highly valued in Aztec society.", usage: "Appears in historical records of battles and military achievements." },
-            person: { name: "TLAPILLI - Person", meaning: "Represents an individual person. Can be modified to show social status, profession, or role.", usage: "Used in genealogies and personal records." },
-            maize: { name: "CENTLI - Maize/Corn", meaning: "Represents corn, the staple crop of the Aztecs. Corn was sacred and central to their diet and religion.", usage: "Appears in agricultural and economic records." },
-
-            heart: { name: "YOLLOTL - Heart", meaning: "Represents the heart, life essence, and courage. The heart was believed to contain the person's life force.", usage: "Used in religious and philosophical contexts." },
-            god: { name: "TEOTL - Divine/God", meaning: "Represents divinity, godhood, and sacred power. Often appears as a modifier to enhance meaning.", usage: "Used in religious contexts and to show sacred or elevated status." }
-        };
-
-        function switchSection(sectionId, element) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            if (element) element.classList.add('active');
-            if (sectionId === 'quiz') startQuiz();
-            window.scrollTo(0, 0);
-        }
-
-        function showLocation(id) {
-            document.querySelectorAll('.location-info').forEach(info => info.classList.remove('show'));
-            // Fixing the PDF ID mismatch so the map actually works
-            const box = document.getElementById('loc-' + id);
-            if (box) box.classList.add('show');
-        }
-
-
-        function showSymbolInfo(key) {
-            const info = symbolInfo[key];
-            alert(`${info.name}\n\n${info.meaning}\n\nUsage: ${info.usage}`);
-        }
-
-        function startQuiz() {
-            currentQuestion = 0; quizScore = 0;
-            displayQuestion();
-        }
-
-        function displayQuestion() {
-            const container = document.getElementById('quiz-content');
-            if (currentQuestion >= quizData.length) {
-                container.innerHTML = `<div style="text-align:center;"><h3>Quiz Complete! Score: ${quizScore}/${quizData.length}</h3><button class="btn-primary" onclick="startQuiz()">Retake Quiz</button></div>`;
-                return;
-            }
-            const q = quizData[currentQuestion];
-            let html = `<h4>Question ${currentQuestion + 1}</h4><p>${q.question}</p><div class="answer-options">`;
-            q.options.forEach((opt, i) => {
-
-                html += `<button class="answer-btn" onclick="handleAnswer(${i})">${opt}</button>`;
-            });
-            html += `</div>`;
-            container.innerHTML = html;
-        }
-
-        function handleAnswer(choice) {
-            const correct = quizData[currentQuestion].correct;
-            const btns = document.querySelectorAll('.answer-btn');
-            btns.forEach(b => b.disabled = true);
-            if (choice === correct) {
-                btns[choice].classList.add('correct');
-                quizScore++;
-            } else {
-                btns[choice].classList.add('incorrect');
-                btns[correct].classList.add('correct');
-            }
-            setTimeout(() => { currentQuestion++; displayQuestion(); }, 1500);
-        }
-
-
-        function checkDecoderAnswer(num, valids) {
-            const user = document.getElementById('answer' + num).value.toLowerCase().trim();
-            const res = document.getElementById('result' + num);
-            const isCorrect = valids.some(v => user === v || user.includes(v.split(' ')[0]));
-            res.style.display = 'block';
-            if (isCorrect) {
-                res.textContent = "CORRECT! You have successfully decoded the glyph!";
-                res.className = "challenge-result correct";
-            } else {
-                res.textContent = "Incorrect. Try again!";
-                res.className = "challenge-result incorrect";
-            }
-        }
-    </script>
-    
-    <div id="arrow" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999; flex-direction:column;">
-        <button onclick="document.getElementById('arrow').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:25px; cursor:pointer; font-weight:bold; z-index:10001; background:#8B0000; border:3px solid #D4AF37; padding:5px 15px; font-family:'Happy Monkey';">X</button>
-        <iframe src="https://alpha-jr1890.github.io/gdl" style="width:100%; height:100%; border:none;"></iframe>
-    </div>
-
-    <script>
-        
-        const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'a', 'b', 'c',];
-        let codePosition = 0;
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === code[codePosition]) {
-                codePosition++;
-                if (codePosition === code.length) {
-                    document.getElementById('arrow').style.display = 'flex';
-                    codePosition = 0; 
-                }
-            } else {
-                codePosition = 0; 
-            }
-        });
-    </script>
-
+function checkDecoderAnswer(num, valids) {
+  const user = document.getElementById('answer' + num).value.toLowerCase().trim();
+  const res = document.getElementById('result' + num);
+  const isCorrect = valids.some(v => user === v || user.includes(v.split(' ')[0]));
+  res.style.display = 'block';
+  if (isCorrect) {
+    res.textContent = "CORRECT! You have successfully decoded the glyph!";
+    res.className = "challenge-result correct";
+  } else {
+    res.textContent = "Incorrect. Try again!";
+    res.className = "challenge-result incorrect";
+  }
+}
+</script>
+<div id="arrow" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999; flex-direction:column;">
+<button onclick="document.getElementById('arrow').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:25px; cursor:pointer; font-weight:bold; z-index:10001; background:#8B0000; border:3px solid #D4AF37; padding:5px 15px; font-family:'Happy Monkey';">X</button>
+<iframe src="https://alpha-jr1890.github.io/gdl" style="width:100%; height:100%; border:none;"></iframe>
+</div>
+<script>
+const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'a', 'b', 'c'];
+let codePosition = 0;
+document.addEventListener('keydown', function (e) {
+  if (e.key === code[codePosition]) {
+    codePosition++;
+    if (codePosition === code.length) {
+      document.getElementById('arrow').style.display = 'flex';
+      codePosition = 0;
+    }
+  } else {
+    codePosition = 0;
+  }
+});
+</script>
 </body>
 </html>
-
-
