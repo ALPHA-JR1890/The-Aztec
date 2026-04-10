@@ -593,21 +593,21 @@
         }
     </script>
     
-    <div id="secret-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999; flex-direction:column;">
-        <button onclick="document.getElementById('secret-overlay').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:25px; cursor:pointer; font-weight:bold; z-index:10001; background:#8B0000; border:3px solid #D4AF37; padding:5px 15px; font-family:'Happy Monkey';">X</button>
+    <div id="arrow" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999; flex-direction:column;">
+        <button onclick="document.getElementById('arrow').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:25px; cursor:pointer; font-weight:bold; z-index:10001; background:#8B0000; border:3px solid #D4AF37; padding:5px 15px; font-family:'Happy Monkey';">X</button>
         <iframe src="https://alpha-jr1890.github.io/gdl" style="width:100%; height:100%; border:none;"></iframe>
     </div>
 
     <script>
         
-        const secretCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',];
+        const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',];
         let codePosition = 0;
 
         document.addEventListener('keydown', function(e) {
-            if (e.key === secretCode[codePosition]) {
+            if (e.key === code[codePosition]) {
                 codePosition++;
-                if (codePosition === secretCode.length) {
-                    document.getElementById('secret-overlay').style.display = 'flex';
+                if (codePosition === code.length) {
+                    document.getElementById('arrow').style.display = 'flex';
                     codePosition = 0; 
                 }
             } else {
